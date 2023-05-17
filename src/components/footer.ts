@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Component } from './component';
+import './footer.css';
 
 export class Footer extends Component {
   // Alt brand: string

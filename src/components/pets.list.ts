@@ -1,16 +1,14 @@
-/* eslint-disable no-unused-vars */
-import { getMockTasks } from '../data/mock.tasks';
-import { Task } from '../models/task';
+import { getMockPets } from '../data/mock.pets';
+import { Pet } from '../models/pets';
 import { Component } from './component';
 
-import './tasks.list.css';
+import './pets.list.css';
 
-export class TasksList extends Component {
-  tasks: Task[];
+export class PetsList extends Component {
+  tasks: Pet[];
   constructor(selector: string) {
     super(selector);
-    this.tasks = getMockTasks();
-    this.tasks[0].isCompleted = true;
+    this.tasks = getMockPets();
     this.render();
     console.log(this.element);
     console.log(this.tasks);
@@ -29,7 +27,7 @@ export class TasksList extends Component {
   }
 
   handleDelete(event: Event) {
-    const element = event.target as HTMLSpanElement;
+    const element = event.target as HTMLElement;
     this.tasks = this.tasks.filter((item) => item.id !== element.dataset.id);
     console.log(this.tasks);
     this.render();
@@ -40,11 +38,14 @@ export class TasksList extends Component {
       .map(
         (item) => `
           <li>
-            <input type="checkbox" ${item.isCompleted ? 'checked' : ''}>
-            <span>${item.id}</span>
-            <span>${item.name}</span>
-            <span>${item.owner}</span>
-            <i class="button" role="button" data-id=${item.id}>🗑️</i>
+            <img src="../../public/img/${item.name}.jpg" alt="Pet" width=120px height=120px>
+            <span>Name: ${item.name}</span>
+            <span>ID: ${item.id}</span>
+            <span>Owner: ${item.owner}</span>
+            <div class="actions">
+              <i class="button" role="button" data-id=${item.id}>🗑️</i>
+              <input type="checkbox" ${item.isAdopted} ? 'checked' : ''
+            </div>
           </li>`
       )
       .join('');
